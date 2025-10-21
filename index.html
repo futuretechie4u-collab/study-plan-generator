@@ -24,24 +24,11 @@
 
         .container {
             background: #111;
-            box-shadow: 15px 15px 15px rgba(165, 69, 189, 0.5), -20px -4px 20px rgba(234, 0, 255, 0.3);
-            border: 1px solid #222;
+            border: 1px solid #ffffff3f;
             border-radius: 12px;
             max-width: 600px;
             width: 100%;
             padding: 40px;
-            animation: slideIn 0.5s ease-out;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         h1 {
@@ -92,7 +79,6 @@
             border-radius: 6px;
             font-size: 0.95em;
             color: #e5e5e5;
-            transition: all 0.2s;
         }
 
         input:focus {
@@ -126,18 +112,6 @@
             padding: 24px;
             margin-bottom: 16px;
             position: relative;
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .subject-card h4 {
@@ -159,7 +133,6 @@
             height: 28px;
             cursor: pointer;
             font-size: 1.2em;
-            transition: all 0.2s;
         }
 
         .remove-btn:hover {
@@ -175,7 +148,6 @@
             border-radius: 6px;
             font-size: 0.95em;
             cursor: pointer;
-            transition: all 0.2s;
             width: 100%;
             font-weight: 500;
             margin-top: 8px;
@@ -205,16 +177,19 @@
             background: #222;
             border-color: #444;
         }
-        #date_col{
+
+        .date_col{
             background:white;
             color:black;
+            border-radius:50px;
         }
-        #date_col:focus{
+        .date_col:focus{
             background:rgb(220, 178, 245);
             color:rgb(82, 82, 82);
             font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            transition:all 0.3s ease-in;
+            padding:0.6rem;
         }
+
         #results {
             margin-top: 32px;
             padding: 24px;
@@ -225,7 +200,7 @@
         }
 
         .day-block {
-            background: #ffffff;
+            background: #500303;
             padding: 16px;
             border-radius: 6px;
             margin-bottom: 12px;
@@ -394,7 +369,6 @@
         </div>
 
         <button class="btn" onclick="generatePlan()"><b>Generate Schedule</b></button>
-        date_col
         <div id="loading" class="loading" style="display: none;">Processing schedule...</div>
         <div id="results"></div>
     </div>
@@ -429,7 +403,7 @@
                 </div>
                 <div class="input-group">
                     <label>Deadline (date)</label>
-                    <input id="date_col" type="date" id="${id}_deadline">
+                    <input class="date_col" type="date" id="${id}_deadline">
                 </div>
             `;
             
@@ -439,14 +413,10 @@
         function removeSubject(id) {
             activeSubjects.delete(id);
             const element = document.getElementById(id);
-            element.style.opacity = '0';
-            element.style.transform = 'translateX(-20px)';
-            setTimeout(() => {
-                element.remove();
-                if (activeSubjects.size === 0) {
-                    document.getElementById('subjectsList').innerHTML = '<div class="empty-state">Click "Add Subject" to get started</div>';
-                }
-            }, 200);
+            element.remove();
+            if (activeSubjects.size === 0) {
+                document.getElementById('subjectsList').innerHTML = '<div class="empty-state">Click "Add Subject" to get started</div>';
+            }
         }
 
         function generatePlan() {
